@@ -1,4 +1,4 @@
-const generateChart = (data = historicData) => {
+const generate = (data = historicData) => {
     let width = nv.utils.windowSize().width,
         height = nv.utils.windowSize().height;
 
@@ -7,9 +7,9 @@ const generateChart = (data = historicData) => {
         .height(height)
         .stacked(false)
 
-    chart.dispatch.on('renderEnd', () => {
+    chart.dispatch.on('renderEnd', () =>
         console.log('Render Complete')
-    })
+    )
 
     let svg = d3.select('#abTest svg').datum(data)
     svg.transition().duration(0).call(chart)
@@ -22,7 +22,7 @@ axios.all([
     axios.get('/latency/b')
 ])
     .then(res => res.map(r => r.data))
-    .then(data => generateChart(data.map(addDescr)))
+    .then(data => generate(data.map(addDescr)))
     .catch(console.error)
 
 const addDescr = (data, i)=> ({
@@ -42,7 +42,6 @@ const dataA = [
     {x: 99, y: 363},
     {x: 100, y: 1415}
 ]
-
 const dataB = [
     {x: 50, y: 469},
     {x: 66, y: 498},
@@ -55,11 +54,10 @@ const dataB = [
     {x: 100, y: 3207}
 ]
 const historicData = [dataA, dataB].map(addDescr)
-console.log(historicData)
 
 nv.addGraph({
-    generate: generateChart,
-    callback: (graph) => {
+    generate,
+    callback: (graph) =>
         nv.utils.windowResize(() => {
             let width = nv.utils.windowSize().width
             let height = nv.utils.windowSize().height
@@ -71,5 +69,5 @@ nv.addGraph({
                 .transition().duration(0)
                 .call(graph)
         })
-    }
+
 })
