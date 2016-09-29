@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="//cdn.muicss.com/mui-0.9.0-rc1/css/mui.min.css" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/nv.d3.min.css" rel="stylesheet" type="text/css">
-    <link href="stylesheets/style.css" rel="stylesheet" type="text/css">
     <title><%= title %></title>
+    <link href="css/mui.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/nv.d3.min.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -14,32 +14,33 @@
     <svg></svg>
 </div>
 
-<script src="js/d3.v3.min.js" charset="utf-8"></script>
-<script src="js/nv.d3.min.js"></script>
-<script src="js/axios.min.js"></script>
-<script src="js/chart.js"></script>
-
 <div class="container">
     <h2>Run A/B tests
         <small>Inputs</small>
     </h2>
 
-    <form>
+    <form id="runTest">
         <div class="group">
-            <input type="text" required>
+            <input id="urlA" type="text" required>
             <span class="highlight"></span>
             <span class="bar"></span>
-            <label>Test A</label>
+            <label>Test url A</label>
         </div>
 
         <div class="group">
-            <input type="text" required>
+            <input id="urlB" type="text" required>
             <span class="highlight"></span>
             <span class="bar"></span>
-            <label>Test B</label>
+            <label>Test url B</label>
         </div>
-        <button id="runTest" type="submit" class="mui-btn mui-btn--raised">Run tests</button>
+        <button type="submit" class="mui-btn mui-btn--raised">Run tests</button>
     </form>
 </div>
+
+<script src="js/d3.v3.min.js" charset="utf-8"></script>
+<script src="js/nv.d3.min.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/chart.js"></script>
+
 </body>
 </html>

@@ -17,14 +17,6 @@ const generate = (data = historicData) => {
     return chart
 }
 
-axios.all([
-    axios.get('/latency/a'),
-    axios.get('/latency/b')
-])
-    .then(res => res.map(r => r.data))
-    .then(data => generate(data.map(addDescr)))
-    .catch(console.error)
-
 const addDescr = (data, i)=> ({
     key: `Scaled ${i}`,
     nonStackable: false,
@@ -69,5 +61,26 @@ nv.addGraph({
                 .transition().duration(0)
                 .call(graph)
         })
+})
 
+d3.select("#runTest").on("submit", () => {
+    d3.event.preventDefault()
+    let urlA = d3.select("#urlA").property("value").trim()
+    let urlB = d3.select("#urlB").property("value").trim()
+
+    axios.all([
+        axios.get('/latency', {
+            params: {
+                url: urlA
+            }
+        }),
+        axios.get('/latency', {
+            params: {
+                url: urlB
+            }
+        })
+    ])
+        .then(res => res.map(r => r.data))
+        .then(data => generate(data.map(addDescr)))
+        .catch(console.error)
 })

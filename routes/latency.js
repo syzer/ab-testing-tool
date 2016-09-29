@@ -1,7 +1,8 @@
-let express = require('express')
+const express = require('express')
 let router = express.Router()
-let _ = require('lodash')
-let exec = require('child-process-promise').exec
+const _ = require('lodash')
+const exec = require('child-process-promise').exec
+const ts = require('type-safety')(_)
 
 const extractStats = (abRes) => {
     let out = abRes.stdout.split('Percentage of the requests served within a certain time (ms)')
@@ -23,16 +24,16 @@ const onError = res => err => {
     res.status(500).send()
 }
 
-router.get('/a', (req, res, next) =>
-    getData('http://localhost:3000/')
-        .then(data => res.json(data))
-        .catch(onError(res))
-)
-
-router.get('/b', (req, res, next) =>
-    getData('http://localhost:3000/')
-        .then(data => res.json(data))
-        .catch(onError(res))
+router.get('/', ts.hasShapeComplex({
+        url: {
+            type: String,
+            required: true,
+            from: 'query'
+        }
+    }), (req, res, next) =>
+        getData(req.query.url)
+            .then(data => res.json(data))
+            .catch(onError(res))
 )
 
 module.exports = router
