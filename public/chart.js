@@ -1,6 +1,6 @@
 const generate = (data = historicData) => {
     let width = nv.utils.windowSize().width,
-        height = nv.utils.windowSize().height;
+        height = nv.utils.windowSize().height
 
     let chart = nv.models.multiBarChart()
         .width(width)
