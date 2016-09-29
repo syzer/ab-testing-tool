@@ -16,7 +16,7 @@ const extractStats = (abRes) => {
 }
 
 const getData = (url) =>
-    exec(`ab -n 500 -c 20 ${url}`)
+    exec(`ab -n 1000 -c 50 ${url}`)
         .then(extractStats)
 
 const onError = res => err => {
