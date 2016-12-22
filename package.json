@@ -1,6 +1,6 @@
 {
-  "name": "doc-scaling",
-  "version": "0.0.0",
+  "name": "ab-testting-for-scaling",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
